@@ -32,7 +32,12 @@ public class EchargerController {
         Optional<Echarger> echarger = echargerRepository.findById(echargerId);
         if(echarger.isPresent()) {
             Echarger echargerValue = echarger.get();
-            
+
+            //Hystrix Timeout 점검
+            if(echargerValue.getChargerId() == 2) {
+                System.out.println("### Hystrix 테스트를 위한 강제 sleep 2초 ###");
+                Thread.sleep(5000);
+            }
             //예약 가능한지 체크
             if(echargerValue.getRsrvTimeAm() == null || echargerValue.getRsrvTimePm() == null) {
                 status = true;
