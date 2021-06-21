@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
-@FeignClient(name="echarger", url="http://localhost:8081")
+@FeignClient(name="echarger", url="{api.url.Echarger}")
 public interface EchargerService {
 
     @RequestMapping(method= RequestMethod.GET, path="/echargers/chkAndRsrvTime")
