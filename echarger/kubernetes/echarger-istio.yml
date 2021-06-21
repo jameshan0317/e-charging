@@ -1,0 +1,13 @@
+  apiVersion: networking.istio.io/v1alpha3
+  kind: VirtualService
+  metadata:
+    name: vs-echarger-network-rule
+    namespace: e-charging
+  spec:
+    hosts:
+    - echarger
+    http:
+    - route:
+      - destination:
+          host: echarger
+      timeout: 3s

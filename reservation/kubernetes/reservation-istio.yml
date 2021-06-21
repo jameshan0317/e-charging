@@ -1,0 +1,13 @@
+  apiVersion: networking.istio.io/v1alpha3
+  kind: VirtualService
+  metadata:
+    name: vs-reservation-network-rule
+    namespace: e-charging
+  spec:
+    hosts:
+    - reservation
+    http:
+    - route:
+      - destination:
+          host: reservation
+      timeout: 3s
