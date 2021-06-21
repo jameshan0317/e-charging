@@ -36,9 +36,6 @@ spec:
             timeoutSeconds: 2
             periodSeconds: 5
             failureThreshold: 5
-          volumeMounts:
-            - name: volume
-              mountPath: "/mnt/azure"
           resources:
             requests:
               memory: "64Mi"
