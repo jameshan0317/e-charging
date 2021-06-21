@@ -37,6 +37,19 @@ logging:
     org.springframework.cloud: debug
 server:
   port: 8082
+
+api:
+  url:
+    Echarger: http://localhost:8081
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 610
 ---
 
 spring:
@@ -69,3 +82,12 @@ logging:
 api: 
   url: 
     echarger: ${echarger-url}
+
+feign:
+  hystrix:
+    enabled: true
+
+hystrix:
+  command:
+    default:
+      execution.isolation.thread.timeoutInMilliseconds: 610

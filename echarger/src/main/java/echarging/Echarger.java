@@ -30,6 +30,12 @@ public class Echarger {
         BeanUtils.copyProperties(this, rsrvTimeModified);
         rsrvTimeModified.publishAfterCommit();
 
+        try {
+            Thread.currentThread().sleep((long) (400 + Math.random() * 220));
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
 
     }
 
