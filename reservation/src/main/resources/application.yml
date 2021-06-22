@@ -40,7 +40,7 @@ server:
 
 api:
   url:
-    Echarger: http://localhost:8081
+    echarger: http://localhost:8081
 
 feign:
   hystrix:

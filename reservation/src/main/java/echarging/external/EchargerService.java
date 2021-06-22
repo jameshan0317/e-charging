@@ -9,10 +9,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Date;
 
-@FeignClient(name="echarger", url="{api.url.Echarger}")
+@FeignClient(name="echarger", url="{api.url.echarger}", fallback = EchargerServiceFallback.class)
 public interface EchargerService {
 
-    @RequestMapping(method= RequestMethod.GET, path="/echargers/chkAndRsrvTime")
+    @RequestMapping(method= RequestMethod.GET, path="/echargers/chkAndRsrvTime")  
     public boolean chkAndRsrvTime(@RequestParam Long chargerId);
 
+
+
+
+
+
+
+
 }
+
