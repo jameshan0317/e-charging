@@ -37,7 +37,7 @@ public class EchargerController {
 
             //Hystrix Timeout 점검
             if(echargerValue.getChargerId() == 2) {
-                System.out.println("### Hystrix 테스트를 위한 강제 sleep 2초 ###");
+                System.out.println("### Hystrix 테스트를 위한 강제 sleep 5초 ###");
                 Thread.sleep(5000);
             }
             //예약 가능한지 체크

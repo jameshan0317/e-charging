@@ -6,6 +6,7 @@ import org.springframework.hateoas.ResourceSupport;
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Date;
+import echarging.external.EchargerService;
 
 @Entity
 @Table(name="Reservation")
@@ -23,20 +24,15 @@ public class Reservation extends ResourceSupport {
 
     
     @PrePersist
-    public void onPrePersist(){
+    public void onPrePersist() throws Exception {
         this.setStatus("RESERVED");
         SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd");
         String today = DateFormat.format(new Date());        
         this.setRsrvDate(today); 
 
-    }    
-    
-    @PostPersist
-    public void onPostPersist() throws Exception {
-
         //SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd");                   
 
-        if(ReservationApplication.applicationContext.getBean(echarging.external.EchargerService.class)
+        if(ReservationApplication.applicationContext.getBean(EchargerService.class)
             .chkAndRsrvTime(this.chargerId)){
                 Reserved reserved = new Reserved();
                 BeanUtils.copyProperties(this, reserved);                                  
