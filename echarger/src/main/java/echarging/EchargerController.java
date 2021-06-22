@@ -5,6 +5,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.Optional;
 
@@ -22,7 +24,7 @@ public class EchargerController {
         method = RequestMethod.GET,
         produces = "application/json;charset=UTF-8")
 
-    public boolean chkAndRsrvTime(HttpServletRequest request, HttpServletResponse response) {
+    public boolean chkAndRsrvTime(HttpServletRequest request, HttpServletResponse response) throws Exception {
         System.out.println("##### /echargers/chkAndRsrvTime  called #####");
 
         boolean status = false;
