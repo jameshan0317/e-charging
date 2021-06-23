@@ -15,6 +15,5 @@ public interface EchargerService {
     @RequestMapping(method= RequestMethod.GET, path="/echargers/chkAndRsrvTime")  
     public boolean chkAndRsrvTime(@RequestParam Long chargerId);
 
-
 }
 

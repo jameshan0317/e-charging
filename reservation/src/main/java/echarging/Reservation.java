@@ -10,7 +10,7 @@ import echarging.external.EchargerService;
 
 @Entity
 @Table(name="Reservation")
-public class Reservation extends ResourceSupport {
+public class Reservation {
 
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
@@ -24,24 +24,47 @@ public class Reservation extends ResourceSupport {
 
     
     @PrePersist
-    public void onPrePersist() throws Exception {
-        this.setStatus("RESERVED");
-        SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd");
-        String today = DateFormat.format(new Date());        
-        this.setRsrvDate(today); 
-
-        //SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd");                   
-
-        if(ReservationApplication.applicationContext.getBean(EchargerService.class)
-            .chkAndRsrvTime(this.chargerId)){
-                Reserved reserved = new Reserved();
-                BeanUtils.copyProperties(this, reserved);                                  
-                                            
-                reserved.publishAfterCommit();
-            }
-        else{
-            throw new Exception("Out of available Time Exception Raised.");
+    public void onPrePersist(){
+        
+        // Req/Res Calling
+        boolean cResult = false;
+        try{
+            cResult = ReservationApplication.applicationContext.getBean(EchargerService.class)
+            .chkAndRsrvTime(this.chargerId);
         }
+        catch(Exception e)
+        {
+            e.printStackTrace();
+        }
+        
+               
+        if(cResult)
+        {
+            this.status="RESERVED";
+            SimpleDateFormat DateFormat = new SimpleDateFormat("yyyyMMdd");
+            String today = DateFormat.format(new Date());        
+            this.setRsrvDate(today); 
+        }
+        else
+        {
+            this.status="Out of available RsrvTime Exception Raised.";
+        }
+    }
+
+    @PostPersist
+    public void onPostPersist(){
+        if(this.status.equals("RESERVED"))
+        {
+            Reserved reserved = new Reserved();
+            BeanUtils.copyProperties(this, reserved);                               
+            reserved.publishAfterCommit();
+            System.out.println("** PUB :: Reserved : reserveId="+this.reserveId);
+        }
+        else 
+        {
+            System.out.println("** PUB :: Out of available RsrvTime : reserveId="+this.reserveId);    
+        }                      
+     
 
     }    
 
