@@ -28,6 +28,7 @@ git clone https://github.com/jameshan0317/e-charging.git
   - [비기능적 요구사항](#비기능적-요구사항)
 - [분석/설계](#분석설계)
   - [Event Storming 결과](#event-storming-결과)
+  - [헥사고날 아키텍처 다이어그램 도출](#헥사고날-아키텍처-다이어그램-도출)
 - [구현](#구현)
   - [기능적 요구사항 검증](#기능적-요구사항-검증)
 - [Saga](#saga)
@@ -76,10 +77,13 @@ git clone https://github.com/jameshan0317/e-charging.git
 ## Event Storming 결과
 ![image](https://user-images.githubusercontent.com/61259324/123213654-3709ba00-d501-11eb-87e3-000211b209b8.png)
 
-MSA-EZ 도구 활용 이벤트 스토밍 및 분석/설계 및 코드 Preview 및 Download
+MSA-EZ 도구를 활용하여 이벤트 스토밍 및 설계/코드 Download
 
 ![image](https://user-images.githubusercontent.com/61259324/123215156-104c8300-d503-11eb-83b3-d109c0b6e470.png)
 
+## 헥사고날 아키텍처 다이어그램 도출
+
+![image](https://user-images.githubusercontent.com/61259324/123290217-0d29b500-d54c-11eb-9feb-b156f757c068.png)
 
 # 구현
 분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라,구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다
