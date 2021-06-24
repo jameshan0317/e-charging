@@ -141,11 +141,15 @@ mvn spring-boot:run
 # Saga
 
 분석/설계 및 구현을 통해 이벤트를 Publish/Subscribe 하도록 구현함
+
 [Publish]
+
 ![image](https://user-images.githubusercontent.com/61259324/123189438-c9499800-d4d8-11eb-85ac-4e782d3cf531.png)
 
 [Subscribe]
+
 ![image](https://user-images.githubusercontent.com/61259324/123189542-f1d19200-d4d8-11eb-827d-5bc7038a8647.png)
+
 
 
 
@@ -154,17 +158,22 @@ mvn spring-boot:run
 본 프로젝트에서 View 역할은 mypage 서비스가 수행함
 
 [충전 예약 신청 후 mypage 조회]
+
 ![image](https://user-images.githubusercontent.com/61259324/123190832-3d853b00-d4db-11eb-96c8-79ee04985a21.png)
 
 
 [충전 종료후 mypage 조회]
+
 ![image](https://user-images.githubusercontent.com/61259324/123190231-1f6b0b00-d4da-11eb-86cd-e551d3c2604b.png)
+
 
 
 
 # Correlation
 각 이벤트 건(메시지)이 어떤 Policy를 처리할 때 어떤건에 연결된 처리건인지를 구별하기 위한 Correlation-key를 제대로 연결하였는지를 검증함
+
 ![image](https://user-images.githubusercontent.com/61259324/123191227-e59b0400-d4db-11eb-9128-b910be029284.png)
+
 
 
 # 동기식 호출(Req/Resp) 
