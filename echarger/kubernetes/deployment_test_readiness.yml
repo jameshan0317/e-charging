@@ -1,31 +1,25 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: reservation
+  name: echarger
   namespace: e-charging
   labels:
-    app: reservation
+    app: echarger
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: reservation
+      app: echarger
   template:
     metadata:
       labels:
-        app: reservation
+        app: echarger
     spec:
       containers:
-        - name: reservation
-          image: jameshan055.azurecr.io/reservation:latest
+        - name: echarger
+          image: jameshan055.azurecr.io/echarger:latest
           ports:
             - containerPort: 8080
-          env:
-            - name: echarger-url
-              valueFrom:
-                configMapKeyRef:
-                  name: echargerurl
-                  key: url
           livenessProbe:
             httpGet:
               path: '/actuator/health'
