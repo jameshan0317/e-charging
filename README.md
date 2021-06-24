@@ -83,7 +83,7 @@ MSA-EZ 도구를 활용하여 이벤트 스토밍 및 설계/코드 Download
 
 ## 헥사고날 아키텍처 다이어그램 도출
 
-![image](https://user-images.githubusercontent.com/61259324/123290217-0d29b500-d54c-11eb-9feb-b156f757c068.png)
+![image](https://user-images.githubusercontent.com/61259324/123291299-f0da4800-d54c-11eb-8cda-decd70d14416.png)
 
 # 구현
 분석/설계 단계에서 도출된 헥사고날 아키텍처에 따라,구현한 각 서비스를 로컬에서 실행하는 방법은 아래와 같다
