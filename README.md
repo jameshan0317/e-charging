@@ -27,7 +27,7 @@ git clone https://github.com/jameshan0317/e-charging.git
   - [기능적 요구사항](#기능적-요구사항)
   - [비기능적 요구사항](#비기능적-요구사항)
 - [분석/설계](#분석설계)
-  - [Event Storming 최종 결과](#event-storming-최종-결과)
+  - [Event Storming 결과](#event-storming-결과)
 - [구현](#구현)
   - [기능적 요구사항 검증](#기능적-요구사항-검증)
 - [Saga](#saga)
@@ -73,9 +73,12 @@ git clone https://github.com/jameshan0317/e-charging.git
 4. 바운디드 컨텍스트로 묶음
 5. 폴리시 부착/이동 및 바운디드 컨텍스트에 매핑함
 
-## Event Storming 최종 결과
+## Event Storming 결과
 ![image](https://user-images.githubusercontent.com/61259324/123213654-3709ba00-d501-11eb-87e3-000211b209b8.png)
-![image](https://user-images.githubusercontent.com/61259324/122641741-1678e300-d142-11eb-97ee-e5e58dfba858.png)
+
+MSA-EZ 도구 활용 이벤트 스토밍 및 분석/설계 및 코드 Preview 및 Download
+
+![image](https://user-images.githubusercontent.com/61259324/123215156-104c8300-d503-11eb-83b3-d109c0b6e470.png)
 
 
 # 구현
