@@ -713,6 +713,6 @@ deployment_Test_liveness.yml
 
 Liveness 확인 실패에 따른 retry발생 확인
 
-![image](https://user-images.githubusercontent.com/61259324/123209876-328ed280-d4fc-11eb-8d5f-b0abdf994a33.png)
+![image](https://user-images.githubusercontent.com/61259324/123285328-e8cbd980-d547-11eb-82ee-7507b9b6f55f.png)
 
 이상으로 12가지 체크포인트가 구현 및 검증 완료되었음 확인함.
