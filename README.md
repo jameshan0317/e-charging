@@ -511,7 +511,9 @@ deploy 완료
 Hystrix 를 설정: FeignClient 요청처리에서 처리시간이 3초가 넘어서면 CB가 동작하도록 (요청을 빠르게 실패처리, 차단) 설정 추가로, 테스트를 위해 1번만 timeout이 발생해도 CB가 발생하도록 설정
 
 (application.yml)
+
 ![image](https://user-images.githubusercontent.com/61259324/123202509-b2627000-d4ef-11eb-94c8-d88f5ee3f174.png)
+
 
 
 호출 서비스(예약)에서는 충전소API 호출에서 문제 발생 시 예약건을 Out of available Time 처리하도록 FallBack 구현함
@@ -543,12 +545,16 @@ public class EchargerServiceFallback implements EchargerService {
 }
 ```
 (Reservation) Reservation.java
+
 ![image](https://user-images.githubusercontent.com/61259324/123203049-b347d180-d4f0-11eb-8f6f-fd4692797c64.png)
+
 
 피호출 서비스(충전소 : echarger )에서 테스트를 위해 chargerId가 2인 예약건에 대해 sleep 처리
 
 (Echarger) EchargerController.java
+
 ![image](https://user-images.githubusercontent.com/61259324/123203202-f144f580-d4f0-11eb-8915-f5db15dd2439.png)
+
 
 서킷 브레이커 동작 확인:
 chargerId가 1번 인 경우 정상적으로 주문 처리 완료
@@ -694,10 +700,14 @@ deployment.yml에 정상 적용되어 있는 livenessProbe
 
 Self-healing 확인을 위한 Liveness Probe 옵션 변경 (Port 변경)
 설정해놓은 deploy로 다시 배포 후, retry 시도 확인 (echarger서비스)
+
 deployment_Test_liveness.yml
+
 ![image](https://user-images.githubusercontent.com/61259324/123209620-d9bf3a00-d4fb-11eb-88d6-1554e1461fa6.png)
 
+
 Liveness 확인 실패에 따른 retry발생 확인
+
 ![image](https://user-images.githubusercontent.com/61259324/123209876-328ed280-d4fc-11eb-8d5f-b0abdf994a33.png)
 
 이상으로 12가지 체크포인트가 구현 및 검증 완료되었음 확인함.
