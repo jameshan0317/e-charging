@@ -595,7 +595,7 @@ kubectl autoscale deploy echarger --min=1 --max=3 --cpu-percent=15 -n e-charging
 
 워크로드를 100명이 2분 동안 걸어줌
 ```
-kubectl exec -it pod/siege -c siege -n edu -- /bin/bash
+kubectl exec -it pod/siege -c siege -n e-charging -- /bin/bash
 
 # siege -c100 -t120S -r10 -v --content-type "application/json" 'http://52.231.156.9:8080/echargers POST {"cgName": "이마트충전소"}'
 ```
