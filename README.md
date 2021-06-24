@@ -588,7 +588,7 @@ chargerId가 2번 인 경우 CB에 의한 timeout 발생 확인 (예약건은 Ou
               cpu: "500m"
 ```
 
-결제 서비스에 대한 replica를 동적으로 늘려주도록 HPA를 설정한다. 설정은 CPU 사용량이 15%를 넘어서면 replica를 3개까지 늘려줌
+충전소 서비스에 대한 replica를 동적으로 늘려주도록 HPA를 설정한다. 설정은 CPU 사용량이 15%를 넘어서면 replica를 3개까지 늘려줌
 ```
 kubectl autoscale deploy echarger --min=1 --max=3 --cpu-percent=15 -n e-charging
 ```
