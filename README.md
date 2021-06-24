@@ -614,31 +614,36 @@ deployment.yml에 정상 적용되어 있는 readinessProbe
 
 ![image](https://user-images.githubusercontent.com/61259324/123204754-ae385180-d4f3-11eb-838e-02a66800ea28.png)
 
-readiness 설정 제거한 yml 파일로 reservation deploy 다시 생성 후, siege 부하 테스트 실행해둔 뒤 재배포를 진행함
+readiness 설정 제거한 yml 파일로 echarger deploy 다시 생성 후, siege 부하 테스트 실행해둔 뒤 재배포를 진행함
 
 siege 테스트
 ``` 
 kubectl exec -it pod/siege -c siege -n e-charging -- /bin/bash
 
-# siege -c100 -t60S -r10 -v --content-type "application/json" 'http://reservation:8080/reservations POST {"chargerId": "1", "rsrvTimeAm": "Y", "userId": "3993"}'
+# siege -c100 -t120S -r10 -v --content-type "application/json" 'http://52.231.156.9:8080/echargers POST {"cgName": "이마트충전소"}'
 ```
-reservation 새버전으로의 배포 시작 (두 개 버전으로 버전 바꿔가면서 테스트)
+echarger 새버전으로의 배포 시작 (두 개 버전으로 버전 바꿔가면서 테스트)
 ```
-kubectl set image deployment reservation reservation=jameshan055.azurecr.io/reservation:v1 –n e-charging
-kubectl set image deployment reservation reservation=jameshan055.azurecr.io/reservation:latest –n e-charging
+(Readiness 설정을 뺀 파일)
+kubectl apply -f deployment_test_readiness.yml -n e-charging
+(Readiness 설정 파일) 
+kubectl apply -f deployment.yml -n e-charging
 ```
 새 버전으로 배포되는 중 (구버전, 신버전 공존)
-![image](https://user-images.githubusercontent.com/61259324/123205268-88f81300-d4f4-11eb-804a-0f8fcd64702c.png)
+![image](https://user-images.githubusercontent.com/61259324/123279598-f5016800-d542-11eb-962b-80e80c8ccdea.png)
+
+![image](https://user-images.githubusercontent.com/61259324/123279428-cedbc800-d542-11eb-98d2-8ecfd918c3b3.png)
+
 
 배포기간중 Availability 가 100%가 안 되는 것을 확인. 원인은 쿠버네티스가 성급하게 새로 올려진 서비스를 READY 상태로 인식하여 서비스 유입을 진행한 것이기 때문. 이를 막기 위해 Readiness Probe 를 설정함
 
-![image](https://user-images.githubusercontent.com/61259324/123205402-c9579100-d4f4-11eb-8136-5cc9972f374b.png)
+![image](https://user-images.githubusercontent.com/61259324/123280435-ba4bff80-d543-11eb-9c40-6d4952b11a0b.png)
 
-![image](https://user-images.githubusercontent.com/61259324/123205443-e1c7ab80-d4f4-11eb-8aa9-37ef1dd61618.png)
+![image](https://user-images.githubusercontent.com/61259324/123280873-23337780-d544-11eb-8bf0-e4fe18a6024f.png)
 
 다시 readiness 정상 적용 후(deployment.yml), Availability 100% 확인
 
-![image](https://user-images.githubusercontent.com/61259324/123205581-25bab080-d4f5-11eb-9440-fa846c876d7f.png)
+![image](https://user-images.githubusercontent.com/61259324/123281179-6beb3080-d544-11eb-8283-ab221a96a77d.png)
 
 
 # ConfigMap
