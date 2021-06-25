@@ -150,6 +150,7 @@ mvn spring-boot:run
 (테스트 실습 Data)
 충전예약(Reservation, Pub), 충전(echarging, Sub)
 http POST http://52.231.156.9:8080/reservations chargerId=1 rsrvTimeAm=Y userId=1
+http POST http://52.231.156.9:8080/reservations chargerId=1 rsrvTimePm=Y userId=2
 http GET http://52.231.156.9:8080/echargings
 http GET http://52.231.156.9:8080/mypages
 http PATCH http://52.231.156.9:8080/echargings/1 amount=10000 (충전시작)
