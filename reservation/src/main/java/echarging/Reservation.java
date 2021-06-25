@@ -24,7 +24,7 @@ public class Reservation {
 
     
     @PrePersist
-    public void onPrePersist(){
+    public void onPrePersist() throws Exception {
         
         // Req/Res Calling
         boolean cResult = false;
@@ -47,7 +47,7 @@ public class Reservation {
         }
         else
         {
-            this.status="Out of available RsrvTime Exception Raised.";
+            throw new Exception("Out of available Time Exception Raised.");
         }
     }
 

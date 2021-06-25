@@ -31,7 +31,7 @@ git clone https://github.com/jameshan0317/e-charging.git
   - [헥사고날 아키텍처 다이어그램 도출](#헥사고날-아키텍처-다이어그램-도출)
 - [구현](#구현)
   - [기능적 요구사항 검증](#기능적-요구사항-검증)
-- [Saga](#saga)
+- [Saga (Event/Chreography 패턴 적용)](#saga-eventchreography-패턴-적용)
 - [CQRS](#cqrs)
 - [Correlation](#correlation)
 - [동기식 호출(Req/Resp)](#동기식-호출reqresp)
@@ -142,9 +142,21 @@ mvn spring-boot:run
 
 
 
-# Saga
+# Saga (Event/Chreography 패턴 적용)
 
-분석/설계 및 구현을 통해 이벤트를 Publish/Subscribe 하도록 구현함
+각 서비스마다 자신의 트랜잭션을 관리하며 현재 상태를 변경한 후 이벤트를 발생시키고, 
+그 이벤트를 다른 서비스에 전달하는 방식으로 구현함 (Publish/Subscribe)
+```
+(테스트 실습 Data)
+충전예약(Reservation, Pub), 충전(echarging, Sub)
+http POST http://52.231.156.9:8080/reservations chargerId=1 rsrvTimeAm=Y userId=1
+http GET http://52.231.156.9:8080/echargings
+http GET http://52.231.156.9:8080/mypages
+http PATCH http://52.231.156.9:8080/echargings/1 amount=10000 (충전시작)
+http GET http://52.231.156.9:8080/echargings
+http PATCH http://52.231.156.9:8080/echargings/1 amount=9000 (충전종료)
+http GET http://52.231.156.9:8080/mypages
+```
 
 [Publish]
 
@@ -158,7 +170,7 @@ mvn spring-boot:run
 
 
 # CQRS
-타 마이크로서비스의 데이터 원본에 접근없이(Composite 서비스나 조인SQL 등 없이)도 내 서비스의 충전 예약 신청 내역 조회가 가능하게 구현해 두었다. 
+타 마이크로서비스의 데이터 원본에 접근없이(Composite 서비스나 조인SQL 등 없이)도 내 서비스의 충전 예약 신청 내역 조회가 가능하게 구현해 두었음
 본 프로젝트에서 View 역할은 mypage 서비스가 수행함
 
 [충전 예약 신청 후 mypage 조회]
@@ -184,6 +196,13 @@ mvn spring-boot:run
 
 전기차 충전예약(reservation) -> 충전소(echarger) 예약 가능 Check 간의 호출은 동기식 일관성을 유지하는 트랜잭션으로 처리했으며. 호출 프로토콜은 RestController를 FeignClient를 이용하여 호출하였음.
 
+```
+(테스트 실습 Data)
+충전예약(Reservation) --> 충전소(echarger) 예약가능 체크
+http POST http://52.231.156.9:8080/reservations chargerId=3 rsrvTimeAm=Y userId=1
+http GET http://52.231.156.9:8080/echargers
+http POST http://52.231.156.9:8080/reservations chargerId=2 rsrvTimeAm=Y userId=1
+```
 
 (Reservation) EchargerService.java
 ```java
@@ -273,7 +292,7 @@ http POST localhost:8088/reservations chargerId=2 rsrvTimePm=Y userId=1   # Succ
 운영단계에서는 Circuit Breaker를 이용하여 충전소 관리 시스템에 장애가 발생하여도 충전예약 접수는 가능하도록 하였음
 
 # Gateway
-API GateWay를 통하여 마이크로 서비스들의 진입점을 통일할 수 있다. 다음과 같이 GateWay를 적용하여 모든 마이크로서비스들은 http://localhost:8088/{context}로 접근할 수 있음.
+API Gateway를 통하여 마이크로 서비스들의 진입점을 통일할 수 있다. 다음과 같이 GateWay를 적용하여 모든 마이크로서비스들은 http://localhost:8088/{context}로 접근할 수 있음.
 
 ```yaml
 server:
@@ -377,7 +396,7 @@ mvn package
 ```
 
 
-Docker Image Build/Push, deploy/service 생성 (yml 이용)
+Azure 레지스트리에 Docker Image Build/Push, deploy/service 생성 (yml 이용)
 
 namespace 생성
 ```
