@@ -2,19 +2,6 @@
 
 ![image](https://user-images.githubusercontent.com/61259324/122623241-4db1aa80-d0d6-11eb-9f65-4982d2072a33.png)
 
-### Repositories
-
-- **게이트웨이** - [https://github.com/jameshan0317/gateway.git](https://github.com/jameshan0317/gateway.git)
-
-- **충전소관리** - [https://github.com/jameshan0317/echarger.git](https://github.com/jameshan0317/echarger.git)
-
-- **충전 예약** - [https://github.com/jameshan0317/reservation.git](https://github.com/jameshan0317/reservation.git)
-
-- **전기 충전** - [https://github.com/jameshan0317/echarging.git](https://github.com/jameshan0317/echarging.git)
-
-- **My Page** - [https://github.com/jameshan0317/mypage.git](https://github.com/jameshan0317/mypage.git)
-
-
 
 *전체 소스 받기*
 ```
