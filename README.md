@@ -533,6 +533,12 @@ deploy 완료
 
 Hystrix 를 설정: FeignClient 요청처리에서 처리시간이 3초가 넘어서면 CB가 동작하도록 (요청을 빠르게 실패처리, 차단) 설정 추가로, 테스트를 위해 1번만 timeout이 발생해도 CB가 발생하도록 설정
 
+```
+(테스트 실습 Data)
+충전예약(Reservation) --> 충전소(echarger) (처리시간이 3초가 넘어서면 CB Open)
+http POST http://52.231.156.9:8080/reservations chargerId=2 rsrvTimeAm=Y userId=1
+```
+
 (application.yml)
 
 ![image](https://user-images.githubusercontent.com/61259324/123202509-b2627000-d4ef-11eb-94c8-d88f5ee3f174.png)
@@ -643,10 +649,11 @@ siege 테스트
 ``` 
 kubectl exec -it pod/siege -c siege -n e-charging -- /bin/bash
 
-# siege -c100 -t120S -r10 -v --content-type "application/json" 'http://52.231.156.9:8080/echargers POST {"cgName": "이마트충전소"}'
+# siege -c100 -t120S -r10 -v --content-type "application/json" 'http://52.231.156.9:8080/echargers POST {"cgName": "이마트충전소999"}'
 ```
 echarger 새버전으로의 배포 시작 (두 개 버전으로 버전 바꿔가면서 테스트)
 ```
+cd echarger/kubernetes/
 (Readiness 설정을 뺀 파일)
 kubectl apply -f deployment_test_readiness.yml -n e-charging
 (Readiness 설정 파일) 
@@ -735,6 +742,11 @@ deployment_Test_liveness.yml
 
 
 Liveness 확인 실패에 따른 retry발생 확인
+
+```
+(테스트 실습 Data)
+kubectl apply -f deployment_Test_liveness.yml
+```
 
 ![image](https://user-images.githubusercontent.com/61259324/123285328-e8cbd980-d547-11eb-82ee-7507b9b6f55f.png)
 
